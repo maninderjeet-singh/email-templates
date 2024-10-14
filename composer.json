@@ -1,0 +1,16 @@
+{
+    "version":"1.0.0",
+    "name": "maninderjeet-singh/email-templates",
+    "description": "This package can be used to create dynamic email templates.",
+    "autoload": {
+        "psr-4": {
+            "Maninderjeet\\EmailTemplate\\": "src/"
+        }
+    },
+    "authors": [
+        {
+            "name": "Maninderjeet Singh"
+        }
+    ],
+    "require": {}
+}
