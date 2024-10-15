@@ -1,29 +1,19 @@
 <?php
+
 namespace Maninderjeet\EmailTemplate\Controllers;
 
 use Illuminate\Http\Request;
 use Maninderjeet\EmailTemplate\EmailTemplate;
 use Maninderjeet\EmailTemplate\Models\EmailTemplate as ModelsEmailTemplate;
+use Illuminate\Support\Facades\Validator;
 
 class EmailTemplateController
 {
-    // public function __invoke(EmailTemplate $EmailTemplate) {
-    //     $quote = $EmailTemplate->justDoIt();
-
-    //     return $quote;
-    // }
-
     public function index()
     {
         try {
-            // $emailTemplates =  [
-            //     (object)['id'=>1,'title'=>'Welcome Email','content'=>'Hello this content is used for welcome email'],
-            //     (object)['id'=>2,'title'=>'Reset Password Email','content'=> 'Hello this content is used for Reset Password Email'],
-            //     (object)['id'=>3,'title'=>'Changed Password Email','content'=> 'Hello this content is used for Changed Password Email'],
-            // ];
             $emailTemplates = ModelsEmailTemplate::get();
             return view('email-template::list\index', compact('emailTemplates'));
-
         } catch (\Throwable $th) {
             throw $th;
         }
@@ -41,7 +31,18 @@ class EmailTemplateController
     public function store(Request $request)
     {
         try {
-            dd($request->all());
+            $validator = Validator::make($request->all(), [
+                'title' => 'required|max:255',
+                'content' => 'required',
+            ]);
+
+            if ($validator->fails()) {
+                return redirect()->back()
+                ->withErrors($validator)
+                ->withInput();
+            }
+            ModelsEmailTemplate::create($request->all());
+            dd('Stored Email Template');
         } catch (\Throwable $th) {
             throw $th;
         }
@@ -50,16 +51,56 @@ class EmailTemplateController
     public function edit($id)
     {
         try {
-            dd('Edit Template'.$id);
+            $emailTemplate = ModelsEmailTemplate::find($id);
+            return view('email-template::form\index', compact('emailTemplate'));
         } catch (\Throwable $th) {
             throw $th;
         }
     }
 
-    public function update(Request $request,$id)
+    public function show($id)
     {
         try {
-            dd('Update Email Template',$request->all(), $id);
+            $emailTemplate = ModelsEmailTemplate::find($id);
+            return view('email-template::preview\index', compact('emailTemplate'));
+        } catch (\Throwable $th) {
+            throw $th;
+        }
+    }
+
+
+    public function update(Request $request, $id)
+    {
+        try {
+            $validator = Validator::make($request->all(), [
+                'title' => 'required|max:255',
+                'content' => 'required',
+            ]);
+
+            if ($validator->fails()) {
+                return redirect()->back()
+                    ->withErrors($validator)
+                    ->withInput();
+            }
+            ModelsEmailTemplate::where('id',$id)->update([
+                'title'=>$request->title,
+                'content' => $request->content
+            ]);
+            dd('Updated Email Template');
+        } catch (\Throwable $th) {
+            throw $th;
+        }
+    }
+
+    public function duplicate($id)
+    {
+        try {
+            $emailTemplate = ModelsEmailTemplate::find($id);
+            $newEmailTemplate = $emailTemplate->replicate()->fill([
+                'title' => 'Copy of '.$emailTemplate->title
+            ]);
+            $newEmailTemplate->save();
+            dd('Duplicate Template' );
         } catch (\Throwable $th) {
             throw $th;
         }
@@ -68,12 +109,13 @@ class EmailTemplateController
     public function destroy($id)
     {
         try {
-            dd('destroy Template' . $id);
+            $emailTemplate = ModelsEmailTemplate::find($id);
+            if($emailTemplate){
+                $emailTemplate->delete();
+            }
+            dd('Deleted Template');
         } catch (\Throwable $th) {
             throw $th;
         }
     }
-
-
-
 }
