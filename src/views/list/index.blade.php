@@ -13,6 +13,7 @@
 <body>
     <div class="container">
         <h3>List of Templates</h3>
+        <a class="btn btn-dark" href="{{ route('email-templates.create') }}">+ Add New</a>
         <div class="card shadow-lg mt-4">
             <div class="card-body">
                 <div class="table-responsive">
@@ -40,12 +41,22 @@
                                             </button>
                                             <ul class="dropdown-menu"
                                                 aria-labelledby="dropdownMenuButton{{ $loop->iteration }}">
-                                                <li><a class="dropdown-item" href="{{route('email-templates.edit',$emailTemplate->id)}}">Edit</a></li>
-                                                <li>
-                                                    <form action="/foo/bar" method="POST">@method('DELETE') <button type="submit">Delete</button> </form>
-                                                    {{-- <a class="dropdown-item" href="#">Delete</a> --}}
+                                                <li><a class="dropdown-item"
+                                                        href="{{ route('email-templates.show', $emailTemplate->id) }}">Preview</a>
                                                 </li>
-                                                {{-- <li><a class="dropdown-item" href="#">Duplicate</a></li> --}}
+                                                <li><a class="dropdown-item"
+                                                        href="{{ route('email-templates.edit', $emailTemplate->id) }}">Edit</a>
+                                                </li>
+                                                <li>
+                                                    <form
+                                                        action="{{ route('email-templates.destroy', $emailTemplate->id) }}"
+                                                        method="POST">@method('DELETE') <button type="submit"
+                                                            class="dropdown-item">Delete</button> </form>
+                                                </li>
+                                                <form
+                                                    action="{{ route('email-templates.duplicate', $emailTemplate->id) }}"
+                                                    method="POST">@method('PUT') <button type="submit"
+                                                        class="dropdown-item">Duplicate</button> </form>
                                             </ul>
                                         </div>
                                     </td>
