@@ -21,3 +21,21 @@ To add this package, you need to update your `composer.json` file to include the
         "url": "https://github.com/maninderjeet-singh/email-templates"
     }
 ]
+
+### Step 2: Require the Package via Composer
+
+After adding the repository, run the following command to require the package:
+
+```json
+composer require maninderjeet-singh/email-templates
+
+### Step 3: Add Service Provider
+
+After installation, you need to register the package's service provider in your Laravel application. Open the config/app.php file and add the service provider to the providers array:
+
+```json
+'providers' => [
+    // Other service providers
+
+    YourPackage\EmailTemplateServiceProvider::class,  // Add this line
+],
