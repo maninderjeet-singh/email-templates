@@ -13,7 +13,7 @@ class EmailTemplateController
     {
         try {
             $emailTemplates = ModelsEmailTemplate::get();
-            return view('email-template::list\index', compact('emailTemplates'));
+            return view('email-template::template\list\index', compact('emailTemplates'));
         } catch (\Throwable $th) {
             throw $th;
         }
@@ -22,7 +22,7 @@ class EmailTemplateController
     public function create()
     {
         try {
-            return view('email-template::form\index');
+            return view('email-template::template\form\index');
         } catch (\Throwable $th) {
             throw $th;
         }
@@ -52,7 +52,7 @@ class EmailTemplateController
     {
         try {
             $emailTemplate = ModelsEmailTemplate::find($id);
-            return view('email-template::form\index', compact('emailTemplate'));
+            return view('email-template::template\form\index', compact('emailTemplate'));
         } catch (\Throwable $th) {
             throw $th;
         }
@@ -62,7 +62,7 @@ class EmailTemplateController
     {
         try {
             $emailTemplate = ModelsEmailTemplate::find($id);
-            return view('email-template::preview\index', compact('emailTemplate'));
+            return view('email-template::template\preview\index', compact('emailTemplate'));
         } catch (\Throwable $th) {
             throw $th;
         }
