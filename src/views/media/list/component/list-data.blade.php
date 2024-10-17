@@ -4,11 +4,12 @@
         <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQALjHNA5UOunikOOQzdkrarFsYkmnGKc2rFw&s" alt="Image 1" class="card-img-top">
         <div class="overlay">
             <button class="btn btn-light btn-sm me-2" onclick="copyImageSrc('https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQALjHNA5UOunikOOQzdkrarFsYkmnGKc2rFw&s')">
-                <i class="bi bi-clipboard"></i>
+                <!-- <i class="bi bi-clipboard"></i> -->
+                 Copy
             </button>
-            <button class="btn btn-danger btn-sm" onclick="deleteImage(this)">
+            <!-- <button class="btn btn-danger btn-sm" onclick="deleteImage(this)">
                 <i class="bi bi-trash"></i>
-            </button>
+            </button> -->
         </div>
     </div>
 </div>
