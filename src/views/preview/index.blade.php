@@ -11,13 +11,14 @@
     <style>
         .iframe-container {
             border: 1px solid #ccc;
-            height: 500px;
+            height: fit-content;
             overflow: auto;
             background-color: #f8f9fa;
         }
 
         iframe {
             width: 100%;
+            height: 700px;
             border: none;
         }
     </style>
